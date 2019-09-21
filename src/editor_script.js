@@ -12,8 +12,8 @@ function uuidv4() {
 }
 
 var uuid = uuidv4();
-
-var _conn = new WebSocket(`ws://${LOCAL_SERVER_IP}:${PORT}/`, "test");
+let wsUrl = "ws://"+LOCAL_SERVER_IP+":"+PORT+"/";
+var _conn = new WebSocket(wsUrl, "test");
 
 var _editor = new ace.edit("editor");
 _editor.setTheme("ace/theme/tomorrow");

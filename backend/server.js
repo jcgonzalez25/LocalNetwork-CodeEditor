@@ -82,5 +82,3 @@ wss.on("connection", function(ws) {
     }else master = null;
   }
 });
-
-console.log(`HOSTING ON HOST ${LOCAL_SERVER_IP}`);
