@@ -13,7 +13,7 @@ function uuidv4() {
 
 var uuid = uuidv4();
 
-var _conn = new WebSocket("ws://cs.indstate.edu:60002/", "test");
+var _conn = new WebSocket(`ws://${LOCAL_SERVER_IP}:${PORT}/`, "test");
 
 var _editor = new ace.edit("editor");
 _editor.setTheme("ace/theme/tomorrow");
@@ -26,7 +26,6 @@ _editor.env.document.getDocument().on("change", function(e) {
     _ignoredelta = false;
     return;
   }
-   handle_input(e);
   _conn.send(JSON.stringify({uuid: uuid, type: 1, delta: e}));
 });
 
@@ -84,6 +83,7 @@ marker.session.addDynamicMarker(marker, true)
 // call marker.redraw after changing one of cursors
 
 _conn.onmessage = function(mev) {
+  console.log(mev,"got message");
   var data = JSON.parse(mev.data);
   if (data.uuid == uuid) return;
   switch(data.type) {
