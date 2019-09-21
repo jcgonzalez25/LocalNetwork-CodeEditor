@@ -29,7 +29,7 @@ function getIP(){
     })
 }
 getIP().then(IP=>{
-    fs.writeFile('client_config.js',
+    fs.writeFile('src/client_config.js',
     `const LOCAL_SERVER_IP = \"${IP}\";\nconst PORT=\"6000\";`,
     (err)=>console.log(err)
     )
