@@ -1,11 +1,14 @@
 #!/usr/local/bin/node
 
 //https://github.com/websockets/ws
-var WebSocket = require("/usr/local/lib/node_modules/ws");
-var wss = new WebSocket.Server({port:60002});
+var WebSocket = require("ws");
+var wss = new WebSocket.Server({port:60000});
 
 var clients = 0, newclients = false;
 var master = null;
+
+
+
 
 function heartbeat() {
   this.isAlive = true;
@@ -24,10 +27,10 @@ const interval = setInterval(function ping() {
     ws.ping('', false, true);
     if (ws == master && newclients) {
       try {
-	master.send(JSON.stringify({uuid: "na", type: 3}));
+        master.send(JSON.stringify({uuid: "na", type: 3}));
       } catch(e) {
-	ws.terminate();
-	master = null;
+	      ws.terminate();
+	      master = null;
       }
     }
   });
@@ -51,34 +54,33 @@ wss.on("connection", function(ws) {
   ws.needsUpdate = false;
   ws.isAlive = true;
   ws.on('pong', heartbeat);
-
   ws.on("message", function(message) {
     var msg = JSON.parse(message);
     switch (msg.type) {
       case 1:
       case 2:
-	broadcast(ws, message);
-	break;
+        broadcast(ws, message);
+	      break;
       case 4:
-	wss.clients.forEach(function(client) {
-	  if (client.needsUpdate == true && client.readyState == WebSocket.OPEN) {
-	    client.send(message);
-	    client.needsUpdate = false;
-	  }
-	});
-	newclients = false;
-	break;
+	      wss.clients.forEach(function(client) {
+	      if (client.needsUpdate == true && client.readyState == WebSocket.OPEN) {
+	        client.send(message);
+	        client.needsUpdate = false;
+	      }});
+	      newclients = false;
+	      break;
     }
   });
-
   if (clients++ == 0) master = ws;
   else {
     newclients = true;
     ws.needsUpdate = true;
-    if (master.isAlive) {
+    if (master.isAlive){
       try {
-	master.send(JSON.stringify({uuid: "na", type: 3}));
+	      master.send(JSON.stringify({uuid: "na", type: 3}));
       } catch(e) {}
-    } else master = null;
+    }else master = null;
   }
 });
+
+console.log(`HOSTING ON HOST ${LOCAL_SERVER_IP}`);
