@@ -1,11 +1,11 @@
-<h1 align="center">🚀 Live Editor On Local Network 🌐</h1>
+<h1 align="center">🚀 LocalNetwork-CodeEditor 🌐</h1>
 
 <p align="center">
   <strong>Collaborative Code Editing Made Easy</strong>
 </p>
 
 ## Overview
-Live Editor On Local Network is a collaborative code editing tool that allows multiple users to edit code together in real-time over a local network. It leverages the power of Ace Editor and WebSockets to provide a seamless collaborative coding experience.
+LocalNetwork-CodeEditor is a collaborative code editing tool that allows multiple users to edit code together in real-time over a local network. It leverages the power of Ace Editor and WebSockets to provide a seamless collaborative coding experience.
 
 ## Getting Started 🛠️
 Follow these simple steps to set up and run Live Editor On Local Network on your local network:
